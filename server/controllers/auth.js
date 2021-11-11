@@ -25,6 +25,7 @@ module.exports.login = async (req, res) => {
         { expiresIn: 60 * 60 }
       );
       res.status(200).json({
+        isAdmin: candidate.isAdmin,
         userId: candidate.id,
         token: `Bearer ${token}`,
       });

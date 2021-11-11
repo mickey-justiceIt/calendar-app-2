@@ -9,36 +9,45 @@ import "./MyCalendar.css"
 import {Redirect} from "react-router-dom";
 import EventModal from "../EventModal/EventModal";
 
-const MyCalendar = ({isAuth,setIsAuth}) => {
+const MyCalendar = ({isAuth,setIsAuth,isAdmin}) => {
 	const [hidden, setHidden] = useState(false);
+	const [selectedEvent,setSelectedEvent] = useState({
+		id:Date.now(),
+		title: "",
+		start: "",
+		end: ""})
+
 	const [newEvent, setNewEvent] = useState({
 		id:Date.now(),
 		title: "",
 		start: "",
 		end: ""});
-	const [allsEvents, setAllsEvents] =
-		useState(JSON.parse(localStorage.getItem("events")) || []);
 
-	// const [selectedEvent,setSelectedEvent] = useState([])
+	const [allEvents, setAllEvents] =
+		useState(JSON.parse(localStorage.getItem("events")) || []);
 
 	const handleLogout = () => {
 		setIsAuth(localStorage.removeItem("ISAUTH"));
+		setIsAuth(localStorage.removeItem("ADMIN"));
+		setIsAuth(localStorage.removeItem("USERID"));
 	};
 	const handleAddEvent = () => {
-		setAllsEvents([...allsEvents, newEvent]);
+		setAllEvents([...allEvents, newEvent]);
 			createEventFunc(newEvent)
 	}
 	useEffect(() => {
-		localStorage.setItem("events", JSON.stringify(allsEvents));
-	}, [allsEvents])
+		localStorage.setItem("events", JSON.stringify(allEvents));
+	}, [allEvents])
 
 
 	const openModal = (id) => {
-		const hasId = allsEvents.filter((item) => item.id !== id);
+		const hasId = allEvents.filter((item) => item.id !== id);
 		if(hasId){
 			setHidden(true);
 		}
-	};
+		setSelectedEvent(hasId)
+		console.log(hasId)
+	}
 
 	const createEventFunc = async (data) => {
 		await createEvent(data)
@@ -48,7 +57,9 @@ const MyCalendar = ({isAuth,setIsAuth}) => {
 		<>
 			<div className={"calendarWrapper"}>
 				<button onClick={handleLogout} className={"logout"}>log out</button>
-				<div className={"createBox"}>
+				<div
+					style={{ display: isAdmin ? "block" : "none" }}
+					className={"createBox"}>
 					<h1 className={"title"}>Calendar Panel</h1>
 					<input className={"create-input"} type="text" placeholder="Add Title"
 								 value={newEvent.title}
@@ -69,7 +80,7 @@ const MyCalendar = ({isAuth,setIsAuth}) => {
 						className={"calendar"}
 						selectable={true}
 						localizer={localizer}
-						events={allsEvents}
+						events={allEvents}
 						startAccessor="start"
 						endAccessor="end"
 						defaultDate={new Date()}
@@ -78,7 +89,7 @@ const MyCalendar = ({isAuth,setIsAuth}) => {
 					/>
 				{!isAuth && <Redirect to={"/login"}/>}
 			</div>
-			{hidden && <EventModal hidden={hidden} setHidden={setHidden} />}
+			{hidden && <EventModal hidden={hidden} setHidden={setHidden} selectedEvent={selectedEvent} />}
 	</>
 	)
 }

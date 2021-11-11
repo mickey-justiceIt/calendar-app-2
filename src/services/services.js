@@ -1,7 +1,7 @@
 import { axiosApi } from "../axios/axios";
 import { urlRequests } from "./urls";
 
-export const userRegistrationFunc = (data) => {
+export const userRegistration = (data) => {
   const url = urlRequests.register;
   return axiosApi({
     method: "POST",
@@ -10,7 +10,7 @@ export const userRegistrationFunc = (data) => {
   });
 };
 
-export const userLoginFunc = (data) => {
+export const userLogin = (data) => {
   const url = urlRequests.login;
   return axiosApi({
     method: "POST",

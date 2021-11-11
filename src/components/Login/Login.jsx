@@ -2,38 +2,45 @@ import React, { useState,useEffect } from 'react';
 
 import { NavLink, Redirect } from 'react-router-dom';
 import { useFormik } from 'formik';
-import {userLoginFunc} from "../../services/services";
+import {userLogin} from "../../services/services";
 import { validate } from "./validate/validate";
 
 import styles from './Login.module.scss';
+import MyCalendar from "../MyCalendar/MyCalendar";
 
 const Login = () => {
-
+  const [isAdmin,setIsAdmin] = useState(false)
   const [isLogin, setIsLogin] = useState(false)
 
-  // const getToken = async (data) => {
-  //   await userLoginFunc(data)
-  //       .then((response) => {
-  //         localStorage.setItem('token', response.data.token);
-  //         localStorage.setItem("USERID", response.data.userId);
-  //         setIsLogin(true)
-  //       })
-  //       .catch((e) => {
-  //         console.log(e.response.data.message)
-  //       })
-  // }
+  const getUserToken = async (data) => {
+    await userLogin(data)
+        .then((response) => {
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem("USERID", response.data.userId);
+          setIsAdmin(response.data.isAdmin)
+          setIsLogin(true)
+
+        })
+        .catch((e) => {
+          console.log(e.response.data.message)
+        })
+  }
+
+  useEffect(() => {
+    getUserToken()
+  })
+
 
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
-    // validate,
+    validate,
     onSubmit: (values) => {
-      // getToken(values)
+      getUserToken(values)
       localStorage.setItem('ISAUTH', JSON.stringify(true));
       setIsLogin(true)
-
     },
   });
   if (isLogin) {
@@ -94,6 +101,7 @@ const Login = () => {
         </div>
         <div className={styles.heroWrapper}></div>
       </div>
+      {isAdmin && <MyCalendar isAdmin={isAdmin}/>}
     </>
   );
 };
