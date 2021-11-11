@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 
 import { NavLink, Redirect } from 'react-router-dom';
 import { useFormik } from 'formik';
+import {userLoginFunc} from "../../services/services";
 import { validate } from "./validate/validate";
 
 import styles from './Login.module.scss';
@@ -10,6 +11,18 @@ const Login = () => {
 
   const [isLogin, setIsLogin] = useState(false)
 
+  // const getToken = async (data) => {
+  //   await userLoginFunc(data)
+  //       .then((response) => {
+  //         localStorage.setItem('token', response.data.token);
+  //         localStorage.setItem("USERID", response.data.userId);
+  //         setIsLogin(true)
+  //       })
+  //       .catch((e) => {
+  //         console.log(e.response.data.message)
+  //       })
+  // }
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -17,8 +30,10 @@ const Login = () => {
     },
     // validate,
     onSubmit: (values) => {
+      // getToken(values)
       localStorage.setItem('ISAUTH', JSON.stringify(true));
       setIsLogin(true)
+
     },
   });
   if (isLogin) {

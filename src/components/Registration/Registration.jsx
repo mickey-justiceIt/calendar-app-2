@@ -4,19 +4,23 @@ import { NavLink, Redirect } from "react-router-dom";
 import { useFormik } from "formik";
 
 import styles from "./Registration.module.scss";
-import { userRegistration } from "../../services/services";
+import { userRegistrationFunc } from "../../services/services";
 import {validate} from "../../validate/validate";
+
 const Registration = () => {
   const [isReg, setIsReg] = useState(false);
-  const checkToken = (data) => {
-    userRegistration(data)
-      .then((response) => {
-          setIsReg(true)
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+
+  // const checkToken = (data) => {
+  //   userRegistrationFunc(data)
+  //     .then((response) => {
+  //         setIsReg(true)
+  //         console.log(response)
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
+
   const formik = useFormik({
     initialValues: {
       id: Date.now().toString(),
@@ -39,12 +43,11 @@ const Registration = () => {
         company: values.company,
       };
       setIsReg(true);
-      checkToken(newUser);
+      // checkToken(newUser);
+
       localStorage.setItem("ISAUTH", JSON.stringify(true));
       localStorage.setItem("USERS", JSON.stringify(newUser));
       localStorage.setItem("USERID", newUser.id);
-      console.log(newUser)
-
     },
   });
   if (isReg) {
