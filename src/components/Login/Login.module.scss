@@ -1,0 +1,78 @@
+*{
+  font-family:Inter;
+}
+.container{
+  display: flex;
+  position: fixed;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  z-index: 999;
+  cursor: pointer;
+}
+.wrapper{
+  display: block;
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+  background: url("https://banana.by/uploads/posts/2009-04/1240251787_sci-fi-space-32596.jpg");
+  color: #FFFFFF;
+}
+.modalBox{
+  margin: 300px auto;
+  max-width: 380px;
+  min-height: 52px;
+  h1{
+    text-align: center;
+    font-size:36px;
+  }
+  h1,p{
+    text-align: center;
+  }
+}
+.formItem{
+  display: flex;
+  flex-direction: column;
+}
+.formInput{
+  margin-top: 8px;
+  line-height: 14px;
+  padding: 0 0 0 16px;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 24px;
+  border-radius: 3px;
+  border: 1px solid lightgray;
+  color: #000000;
+}
+.formBtn{
+  text-align: center;
+  color: #FFFFFF;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 24px;
+  background: black;
+  border: none;
+
+}
+.heroWrapper{
+  width: 50%;
+  height: 100%;
+  background: url("https://www.ohsolovelyblog.com/wp-content/uploads/2019/12/2020Desktops-Sunday-01.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.errors{
+  display: block;
+  font-size: 11px;
+  line-height: 14px;
+  color: #CF4949;
+  margin-bottom: 10px;
+}
