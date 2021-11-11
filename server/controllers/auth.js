@@ -1,8 +1,8 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
-const User = require("../../../../api/models/User");
-const errorHandler = require("../../../../api/utils/errorHandler");
+const User = require("../models");
+const errorHandler = require("../../server/utils/errorHandler");
 
 module.exports.login = async (req, res) => {
   const candidate = await User.findOne({
