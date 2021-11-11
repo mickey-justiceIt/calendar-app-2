@@ -1,5 +1,5 @@
-const Event = require("../../../../api/models/Event");
-const errorHandler = require("../../../../api/utils/errorHandler");
+const Event = require("../models/Event");
+const errorHandler = require("../utils/errorHandler");
 
 
 module.exports.getEvents = async (req, res) => {

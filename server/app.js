@@ -2,9 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 
-const authRoutes = require("../../../server/routes/auth");
-const eventRoutes = require("../../../server/routes/events");
-const keys = require("../../../server/config/keys");
+const authRoutes = require("./routes/auth");
+const eventRoutes = require("./routes/events");
+const keys = require("./config/keys");
 
 const passport = require("passport");
 
@@ -14,7 +14,7 @@ mongoose
   .catch((e) => console.log(e));
 
 app.use(passport.initialize());
-require("../../../server/middleware/passport")(passport);
+require("./middleware/passport")(passport);
 
 app.use(require("morgan")("dev"));
 app.use(express.urlencoded({extended: true}));
