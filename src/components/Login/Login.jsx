@@ -15,7 +15,7 @@ const Login = () => {
       email: '',
       password: '',
     },
-    validate,
+    // validate,
     onSubmit: (values) => {
       localStorage.setItem('ISAUTH', JSON.stringify(true));
       setIsLogin(true)

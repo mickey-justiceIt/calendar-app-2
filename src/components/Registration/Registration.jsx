@@ -27,7 +27,7 @@ const Registration = () => {
       repeatPassword: "",
       company: "",
     },
-    validate,
+    // validate,
     onSubmit: (values) => {
       const newUser = {
         id: Date.now().toString(),
