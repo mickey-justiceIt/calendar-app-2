@@ -11,7 +11,6 @@
   background: white;
   z-index: 999;
   cursor: pointer;
-  color: #FFFFFF;
 }
 .wrapper{
   display: block;
@@ -30,6 +29,7 @@
     font-size: 36px;
     text-align: center;
     line-height: 48px;
+    color: #FFFFFF;
   }
   .formLink{
     text-align: center;
@@ -38,6 +38,7 @@
       line-height: 14px;
       letter-spacing: 0em;
       text-align: left;
+      color: #FFFFFF;
     }
   }
   a{
