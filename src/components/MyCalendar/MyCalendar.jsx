@@ -48,7 +48,6 @@ const MyCalendar = ({isAuth,setIsAuth,setIsAdmin}) => {
 		})
 	}
 
-	console.log(selectedEvent)
 	const createEventFunc = async (data) => {
 		await createEvent(data)
 	}
@@ -59,10 +58,11 @@ const MyCalendar = ({isAuth,setIsAuth,setIsAdmin}) => {
 				<div
 					style={{ display: isAdmin ? "block" : "none" }}
 					className={"createBox"}>
-					<h1 className={"title"}>Calendar Panel</h1>
+					<h1 className={"title"}>ADMIN PANEL</h1>
 					<input className={"create-input"} type="text" placeholder="Add Title"
 								 value={newEvent.title}
-								 onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}/>
+								 onChange={(e) =>
+									 setNewEvent({ ...newEvent, title: e.target.value })}/>
 					<DatePicker className={"create-input"}
 											placeholderText="Start Date"
 											selected={newEvent.start}
