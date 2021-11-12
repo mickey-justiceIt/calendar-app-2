@@ -51,6 +51,7 @@ const MyCalendar = ({isAuth,setIsAuth,setIsAdmin}) => {
 	const createEventFunc = async (data) => {
 		await createEvent(data)
 	}
+
 	return (
 		<>
 			<button onClick={handleLogout} className={"logout"}>log out</button>
@@ -100,16 +101,3 @@ export default MyCalendar
 
 
 
-// const handleChange = (event) => {
-// 	const selectedItem = allsEvents.filter((item) => event.id === item.id)
-// 	const title = window.prompt('New Event name', selectedItem[0].title)
-// 	if (title) {
-// 		const selectedEvent = {
-// 			id: event.id,
-// 			start: event.start,
-// 			end: event.end,
-// 			title: title || event.title
-// 		}
-// 		setAllsEvents([...allsEvents, selectedEvent])
-// 	}
-// }
