@@ -1,5 +1,5 @@
-import React, {useEffect, useState,useMemo} from "react"
-import {Calendar,Views} from 'react-big-calendar';
+import React, {useEffect, useState} from "react"
+import {Calendar} from 'react-big-calendar';
 
 import {localizer} from '../../utils/localizer'
 import {createEvent, editEvent, getEvents} from '../../services/services'
@@ -9,13 +9,11 @@ import "./MyCalendar.css"
 import {Redirect} from "react-router-dom";
 import EventModal from "../EventModal/EventModal";
 
-const MyCalendar = ({isAuth,setIsAuth,isAdmin}) => {
+const MyCalendar = ({isAuth,setIsAuth,setIsAdmin}) => {
+	const isAdmin = JSON.parse(localStorage.getItem("ISADMIN"))
+
 	const [hidden, setHidden] = useState(false);
-	const [selectedEvent,setSelectedEvent] = useState({
-		id:Date.now(),
-		title: "",
-		start: "",
-		end: ""})
+	const [selectedEvent,setSelectedEvent] = useState([])
 
 	const [newEvent, setNewEvent] = useState({
 		id:Date.now(),
@@ -28,9 +26,10 @@ const MyCalendar = ({isAuth,setIsAuth,isAdmin}) => {
 
 	const handleLogout = () => {
 		setIsAuth(localStorage.removeItem("ISAUTH"));
-		setIsAuth(localStorage.removeItem("ADMIN"));
-		setIsAuth(localStorage.removeItem("USERID"));
+		setIsAuth(localStorage.removeItem("ISADMIN"));
+		setIsAuth(localStorage.removeItem("token"));
 	};
+
 	const handleAddEvent = () => {
 		setAllEvents([...allEvents, newEvent]);
 			createEventFunc(newEvent)
@@ -41,22 +40,22 @@ const MyCalendar = ({isAuth,setIsAuth,isAdmin}) => {
 
 
 	const openModal = (id) => {
-		const hasId = allEvents.filter((item) => item.id !== id);
-		if(hasId){
-			setHidden(true);
-		}
-		setSelectedEvent(hasId)
-		console.log(hasId)
+		setHidden(true);
+		setSelectedEvent({
+				title:id.title,
+				start: id.start,
+				end: id.end
+		})
 	}
 
+	console.log(selectedEvent)
 	const createEventFunc = async (data) => {
 		await createEvent(data)
 	}
-
 	return (
 		<>
+			<button onClick={handleLogout} className={"logout"}>log out</button>
 			<div className={"calendarWrapper"}>
-				<button onClick={handleLogout} className={"logout"}>log out</button>
 				<div
 					style={{ display: isAdmin ? "block" : "none" }}
 					className={"createBox"}>
@@ -89,7 +88,9 @@ const MyCalendar = ({isAuth,setIsAuth,isAdmin}) => {
 					/>
 				{!isAuth && <Redirect to={"/login"}/>}
 			</div>
-			{hidden && <EventModal hidden={hidden} setHidden={setHidden} selectedEvent={selectedEvent} />}
+			{
+			hidden && <EventModal hidden={hidden} setHidden={setHidden} selectedEvent={selectedEvent}  />}
+
 	</>
 	)
 }

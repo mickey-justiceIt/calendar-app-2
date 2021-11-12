@@ -7,7 +7,7 @@ import styles from "./Registration.module.scss";
 import {userRegistration} from "../../services/services";
 import {validate} from "../../validate/validate";
 
-const Registration = () => {
+const Registration = ({isAuth,setIsAuth}) => {
     const [isReg, setIsReg] = useState(false);
 
     const checkToken = (data) => {
@@ -45,11 +45,10 @@ const Registration = () => {
             localStorage.setItem("USERID", newUser.id);
         },
     });
-    if (isReg) {
-        return <Redirect to="/login"/>;
-    }
+
     return (
         <>
+            {isReg && <Redirect to="/login"/>}
             <div className={styles.container}>
                 <div className={styles.wrapper}>
                     <div className={styles.modalBox}>

@@ -8,28 +8,19 @@ import { validate } from "./validate/validate";
 import styles from './Login.module.scss';
 import MyCalendar from "../MyCalendar/MyCalendar";
 
-const Login = () => {
-  const [isAdmin,setIsAdmin] = useState(false)
-  const [isLogin, setIsLogin] = useState(false)
+const Login = ({isAuth,setIsAuth}) => {
+  const [isAdmin,setIsAdmin] = useState(JSON.parse(localStorage.getItem("ISADMIN"),[]))
 
   const getUserToken = async (data) => {
     await userLogin(data)
         .then((response) => {
-          localStorage.setItem('token', response.data.token);
-          localStorage.setItem("USERID", response.data.userId);
-          setIsAdmin(response.data.isAdmin)
-          setIsLogin(true)
-
+          setIsAdmin(JSON.stringify(localStorage.setItem("ISADMIN",response.data.isAdmin)))
+          setIsAuth(JSON.stringify(localStorage.setItem("ISAUTH", true)))
         })
         .catch((e) => {
           console.log(e.response.data.message)
         })
   }
-
-  useEffect(() => {
-    getUserToken()
-  })
-
 
   const formik = useFormik({
     initialValues: {
@@ -39,15 +30,12 @@ const Login = () => {
     validate,
     onSubmit: (values) => {
       getUserToken(values)
-      localStorage.setItem('ISAUTH', JSON.stringify(true));
-      setIsLogin(true)
     },
   });
-  if (isLogin) {
-    return <Redirect to='/' />;
-  }
+
   return (
     <>
+      {isAuth && <Redirect to='/' />}
       <div className={styles.container}>
         <div className={styles.wrapper}>
           <div className={styles.modalBox}>
@@ -101,7 +89,6 @@ const Login = () => {
         </div>
         <div className={styles.heroWrapper}></div>
       </div>
-      {isAdmin && <MyCalendar isAdmin={isAdmin}/>}
     </>
   );
 };

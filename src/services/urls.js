@@ -1,4 +1,4 @@
-const baseURL = "http://localhost:5000/api/";
+const baseURL = "http://localhost:5000/server/";
 
 export const urlRequests = {
   user: `${baseURL}auth`,

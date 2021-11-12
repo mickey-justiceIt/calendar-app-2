@@ -52,7 +52,11 @@ $fontSize: 14px;
 }
 
 .modalBox {
-  padding: 64px;
+  padding: 30px;
+
+  h1{
+    font-size: 24px;
+  }
 }
 .modalForm {
   font-size: $fontSize;
@@ -60,14 +64,11 @@ $fontSize: 14px;
   flex-direction: column;
   width: 100%;
 
-  input {
-    line-height: 14px;
-    padding: 0 0 0 16px;
-    width: 100%;
-    height: 50px;
-    margin-bottom: 24px;
-    border-radius: 3px;
-    border: 1px solid lightgray;
+  .eventData{
+    font-size: 24px;
+    text-align: justify;
+    max-width: 230px;
+
   }
 
   .formBtn {
@@ -76,9 +77,9 @@ $fontSize: 14px;
     align-items: center;
     width: 100%;
     height: 50px;
-    margin-bottom: 24px;
+    margin: 20px 0 20px 0px;
     border-radius: 3px;
-    background: #5382e7;
+    background: #1f0803;
     border: none;
 
     img {
@@ -86,3 +87,4 @@ $fontSize: 14px;
     }
   }
 }
+
